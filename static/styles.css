@@ -1,0 +1,129 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(52, 52, 54);
+  height: 90vh;
+}
+
+h1 {
+  color: white;
+  font-size: 64px;
+}
+
+h3 {
+  color: lightgrey;
+  font-size: 36px;
+}
+
+
+input {
+  border-radius: 1rem;
+  height: 25px;
+  font-weight: bold;
+  font-size: large;
+  padding-left: 10px;
+}
+
+label {
+  color: lightgrey;
+  font-size: large;
+  font-weight: bold;
+}
+
+#main-section {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#game-container {
+  display: flex;
+  justify-content: center;
+
+  height: 500px;
+  width: 500px;
+}
+
+#settings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20vw;
+}
+
+#score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20vw;
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+table {
+  background-color: rgb(201, 201, 201);
+  padding: 10px;
+  border-radius: 1rem;
+  height: 100%;
+  width: 100%;
+}
+
+td {
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
+  background-color: white;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+button {
+  border-radius: 2rem;
+  margin: 10px;
+  padding: 10px;
+  font-size: large;
+  font-weight: bold;
+  cursor: pointer;
+  width: 125px;
+}
+
+a {
+  font-size: large;
+  font-weight: bold;
+  background-color: yellow;
+  width: 100px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  color: black;
+  border-radius: 2rem;
+  text-decoration: none;
+}
+
+#answer-section {
+  margin-top: 1rem;
+  width: auto;
+}
+
+ul {
+  background-color: rgb(227, 232, 232);
+  border-radius: 1rem;
+  width: 100%;
+  padding: 10px;
+}
+
+li {
+  list-style: none;
+  font-size: large;
+  font-weight: bold;
+}
+
+.feedback {
+  color: red;
+  font-size: large;
+  font-weight: bold;
+}
