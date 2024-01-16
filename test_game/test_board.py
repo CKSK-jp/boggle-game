@@ -5,27 +5,18 @@ from flask import session
 from app import app
 from boggle import Boggle
 
-# app.config["TESTING"] = True
-# app.config["DEBUG_TP_HOSTS"] = ["dont-show-debug-toolbug"]
-
 
 class GameBoardTests(TestCase):
     # TODO -- write tests for every view function / feature!
 
-    # @classmethod
-    # def setUpClass(cls) -> None:
-    #     return super().setUpClass()
+    @classmethod
+    def setUpClass(cls):
+        cls.boggle_instance = Boggle()
+        cls.initial_board = cls.boggle_instance.make_board()
 
-    # @classmethod
-    # def tearDownClas(cls) -> None:
-    #     return super().setUpClass()
-
-    # def setUp(self):
-    #     with app.test_client() as client:
-    #         res = client.get("/")
-
-    # def tearDown(self):
-    #     print("inside tear down")
+    @classmethod
+    def tearDownClass(self):
+        super().tearDownClass()
 
     def test_display_board(self):
         with app.test_client() as client:
@@ -34,33 +25,19 @@ class GameBoardTests(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIn("<tr>", html)
 
-    def test_form_post(self):
-        with app.test_client() as client:
-            res = client.post("/submit-guess", data={"guess": "orange"})
-            self.assertEqual(res.status_code, 204)
+    def test_board_generation(self):
+        board = self.boggle_instance.make_board()
+        self.assertEqual(len(board), 5)
+        self.assertTrue(all(len(row) == 5 for row in board))
 
-    def test_redirection(self):
+    def test_reset_found_words(self):
         with app.test_client() as client:
-            res = client.get("/redirect-me")
+            res = client.get("/reset-game")
             self.assertEqual(res.status_code, 302)
-            self.assertEqual(res.location, "/")
+            self.assertEqual(session["found_words"], [])
 
-    def test_redirection_followed(self):
+    def test_reset_board(self):
         with app.test_client() as client:
-            res = client.get("/redirect-me", follow_redirects=True)
-            self.assertEqual(res.status_code, 200)
-
-    # def test_session_count(self):
-    #     with app.test_client() as client:
-    #         res = client.get("/")
-    #         self.assertEqual(res.status_code, 200)
-    #         self.assertEqual(session["count"], 1)
-
-    # def test_set_session(self):
-    #     with app.test_client() as client:
-    #         with client.session_transaction() as change_session:
-    #             change_session["count"] = 999
-
-    #         res = client.get("/")
-    #         self.assertEqual(res.status_code, 200)
-    #         self.assertEqual(session["count"], 1000)
+            res = client.get("/reset-game")
+            self.assertEqual(res.status_code, 302)
+            self.assertNotEqual(session["current_board"], self.initial_board)

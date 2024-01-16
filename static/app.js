@@ -1,17 +1,21 @@
+const $guess = $('input[name="guess"]');
 const $wordList = $('#found-words-list');
-const $feedbackDiv = $('.feedback')
+const $feedbackDiv = $('.feedback');
+const $scorebox = $('#user-score');
 
 async function submitGuess() {
   try {
-    let guess = $('input[name="guess"]').val();
+    let guess = $guess.val();
+    $guess.val('');
 
     const response = await axios.post("/submit-guess", {
       guess: guess
     });
-    console.log(response.status)
     if (response.status === 200) {
+      console.log(response);
       updateFoundWords(response.data.foundWords)
       updateMessage(response.data.feedback)
+      updateScore(response.data.score)
     }
   } catch (error) {
     console.log(error);
@@ -19,15 +23,17 @@ async function submitGuess() {
 }
 
 function updateFoundWords(foundWords) {
-  $wordList.empty()
+  $wordList.empty();
   foundWords.forEach(word => {
-    console.log(word)
-    const foundWordItem = $('<li>').text(word)
-    $wordList.append(foundWordItem)
+    const foundWordItem = $('<li>').text(word);
+    $wordList.append(foundWordItem);
   })
 }
 
 function updateMessage(msg) {
-  console.log(msg);
-  $feedbackDiv.text(msg)
+  $feedbackDiv.text(msg);
+}
+
+function updateScore(score) {
+  $scorebox.text(score);
 }
