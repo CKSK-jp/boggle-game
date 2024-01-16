@@ -35,5 +35,5 @@ function updateMessage(msg) {
 }
 
 function updateScore(score) {
-  $scorebox.text(score);
+  $scorebox.text() + score;
 }

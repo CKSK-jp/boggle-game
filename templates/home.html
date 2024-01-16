@@ -11,41 +11,58 @@
 <body>
   <h1>Boggle Game</h1>
 
-  <section id="game-section">
-    <table>
-      {% for row in current_board %}
-      <tr>
-        {% for cell in row %}
-        <td>{{ cell }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
+  <section id="input-container">
+    <form method="POST" onsubmit="event.preventDefault(); submitGuess();">
+      <label for="guess">Enter word found: </label>
+      <input type="text" name="guess" required>
+      <button type="submit">submit</button>
+    </form>
+
+    <div class="feedback">
+    </div>
+    <hr>
   </section>
 
-  <hr>
-  <form method="POST" onsubmit="event.preventDefault(); submitGuess();">
-    <label for="guess">Enter word found: </label>
-    <input type="text" name="guess" required>
-    <button type="submit">submit</button>
-  </form>
+  <section id="main-section">
+    <div id="settings-container">
+      <button type="button">Untimed</button>
+      <button type="button">Timed</button>
+      <a href="/reset-game">Reset Game</a>
+    </div>
+
+    <div id="game-container">
+      <table>
+        {% for row in current_board %}
+        <tr>
+          {% for cell in row %}
+          <td>{{ cell }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div id="score-container">
+      <div id="user-score">Current Score: {{ current_score }}</div>
+      <div id="user-highscore">
+        HighScore: 
+      </div>
+    </div>
+  </section>
 
 
-  <div class="feedback">
-  </div>
+  <section id="answer-section">
+    <h3>Found Answers!</h3>
 
-  <hr>
-  <h3>Found Answers!</h3>
+    <ul id="found-words-list">
+      {% for word in found_words %}
+      <li>{{ word }}</li>
+      {% endfor %}
+    </ul>
+  </section>
 
-  <ul id="found-words-list">
-    {% for word in found_words %}
-    <li>{{ word }}</li>
-    {% endfor %}
-  </ul>
 
-  <hr>
-  <div id="user-score">Score: {{ current_score }}</div>
-  <a href="/reset-game">Reset Game</a>
+
 
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
