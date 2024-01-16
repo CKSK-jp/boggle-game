@@ -1,14 +1,12 @@
 """Utilities related to Boggle game."""
 
-from random import choice
 import string
+from random import choice
 
 
-class Boggle():
-
+class Boggle:
     def __init__(self):
-
-        self.words = self.read_dict("words.txt")
+        self.words = self.read_dict("/data/words.txt")
 
     def read_dict(self, dict_path):
         """Read and return all words in dictionary."""
