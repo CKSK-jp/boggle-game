@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session
 
 from boggle import Boggle
 
@@ -12,20 +12,32 @@ app.config["SECRET_KEY"] = "asdf123"
 app.debug = True
 # toolbar = DebugToolbarExtension(app)
 
+boggle_instance = Boggle()
+board = boggle_instance.make_board()
+found_words = []
+
 
 @app.route("/")
 def boggle_homepage():
-    session["count"] = session.get("count", 0) + 1
-    return render_template("home.html")
+    session["current_board"] = board
+    return render_template("home.html", game_board=board)
 
 
-@app.route("/submit-form", methods=["POST"])
-def get_form():
-    if request.method == "POST":
-        print(request.form)
-        return ("", 204)
-    # fav_color = request.form.get("color")
-    # return render_template("color.html", fav_color=fav_color)
+@app.route("/submit-guess", methods=["POST"])
+def submit_guess():
+    data = request.get_json()
+    guess = data.get("guess")
+
+    result = boggle_instance.check_valid_word(board, guess)
+    if result == "ok":
+        message = "you found a word!"
+        found_words.append(guess)
+    elif result == "not-on-board":
+        message = "invalid guess"
+    else:
+        message = "not a word"
+
+    return jsonify({"foundWords": found_words, "feedback": message})
 
 
 @app.route("/redirect-me")

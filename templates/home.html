@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/styles.css">
   <title>Test Title</title>
 </head>
+
 <body>
   <h1>Test Title</h1>
-  <form method="POST" onsubmit="event.preventDefault(); performPost();">
-    <label for="fav-color">What is your favourite color?</label>
-    <input type="text" name="color">
+
+  <section id="game-section">
+    <table>
+      {% for row in game_board %}
+      <tr>
+        {% for cell in row %}
+        <td>{{ cell }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <hr>
+  <form method="POST" onsubmit="event.preventDefault(); submitGuess();">
+    <label for="guess">Enter word found: </label>
+    <input type="text" name="guess" required>
     <button type="submit">submit</button>
   </form>
-  <p>Page has been visited {{ session['count'] }} times(s).</p>
+
+
+  <div class="feedback">
+  </div>
+  <ul id="found-words-list"></ul>
 
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="/static/app.js"></script>
 </body>
+
 </html>
