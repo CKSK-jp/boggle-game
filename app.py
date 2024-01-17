@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
 from boggle import Boggle
@@ -20,12 +22,14 @@ def boggle_homepage():
     session.setdefault("current_board", [])
     session.setdefault("found_words", [])
     session.setdefault("current_score", 0)
+    session.setdefault("highscore", 0)
 
     return render_template(
         "home.html",
         current_board=session["current_board"],
         found_words=session["found_words"],
         current_score=session["current_score"],
+        highscore=session["highscore"],
     )
 
 
@@ -40,6 +44,8 @@ def submit_guess():
             message = "you found a word!"
             session["found_words"].append(guess)
             session["current_score"] += len(guess)
+            if session["current_score"] > session["highscore"]:
+                session["highscore"] = session["current_score"]
         else:
             message = "already guessed!"
 
@@ -53,6 +59,7 @@ def submit_guess():
             "foundWords": session["found_words"],
             "feedback": message,
             "score": session["current_score"],
+            "highscore": session["highscore"],
         }
     )
 
@@ -62,7 +69,30 @@ def reset_game():
     session["found_words"] = []
     session["current_board"] = app.boggle_instance.make_board()
     session["current_score"] = 0
+    app.config.pop("duration", None)
+
     return redirect(url_for("boggle_homepage"))
+
+
+@app.route("/start_timer")
+def start_timer():
+    # start a new duration if not currently in a timedGame
+    if "duration" not in app.config:
+        app.config["duration"] = datetime.now() + timedelta(seconds=60)
+    remaining_time = app.config["duration"] - datetime.now()
+    remaining_seconds = remaining_time.total_seconds()
+
+    if round(remaining_seconds) == 0:
+        print("end timer")
+        app.config.pop("duration", None)
+
+    return jsonify({"duration": remaining_seconds})
+
+
+@app.route("/stop_timer", methods=["POST"])
+def stop_timer():
+    app.config.pop("duration", None)
+    return ""
 
 
 if __name__ == "__main__":

@@ -12,22 +12,25 @@
   <h1>Boggle Game</h1>
 
   <section id="input-container">
-    <form method="POST" onsubmit="event.preventDefault(); submitGuess();">
+    <form method="POST" id="user-input" onsubmit="event.preventDefault(); submitGuess();">
       <label for="guess">Enter word found: </label>
       <input type="text" name="guess" required>
-      <button type="submit">submit</button>
+      <button id="submit-btn" type="submit">submit</button>
     </form>
 
     <div class="feedback">
     </div>
-    <hr>
   </section>
 
   <section id="main-section">
     <div id="settings-container">
-      <button type="button">Untimed</button>
-      <button type="button">Timed</button>
-      <a href="/reset-game">Reset Game</a>
+      <div id="timer-settings">
+        <div class="timed timer-btn">Timed Game</div>
+      </div>
+      <div>
+        <span id="timer"></span>
+      </div>
+      <a id="reset-btn" href="/reset-game">Reset Game</a>
     </div>
 
     <div id="game-container">
@@ -41,24 +44,25 @@
         {% endfor %}
       </table>
     </div>
-
-    <div id="score-container">
-      <div id="user-score">Current Score: {{ current_score }}</div>
-      <div id="user-highscore">
-        HighScore: 
+    <div id="answers-container">
+      <div>
+        <h3>Found Answers!</h3>
+        <ul id="found-words-list">
+          {% for word in found_words %}
+          <li>{{ word }}</li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
   </section>
 
 
-  <section id="answer-section">
-    <h3>Found Answers!</h3>
+  <section id="score-section">
+    <div>Current Score: <span id="user-score">{{ current_score }}</span></div>
+    <div>
+      HighScore: <span id="user-highscore"> {{ highscore }}</span>
+    </div>
 
-    <ul id="found-words-list">
-      {% for word in found_words %}
-      <li>{{ word }}</li>
-      {% endfor %}
-    </ul>
   </section>
 
 
