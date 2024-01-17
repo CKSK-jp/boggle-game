@@ -1,7 +1,8 @@
 const $guess = $('input[name="guess"]');
 const $wordList = $('#found-words-list');
 const $feedbackDiv = $('.feedback');
-const $scorebox = $('#user-score');
+const $currentScore = $('#user-score');
+const $highscore = $('#user-highscore')
 const $timerBtn = $('.timer-btn');
 const $timerBox = $('#timer').parent();
 let countdownInterval;
@@ -69,8 +70,9 @@ function stopTimer() {
 }
 
 function gameOver() {
-  $('#user-input :input').prop('disabled', true);
+  $('input').prop('disabled', true);
   $timerBtn.addClass('disabled');
+  $('#submit-btn').addClass('disabled');
   $('.feedback').text('GAME OVER, press reset to try again');
 }
 
@@ -86,7 +88,7 @@ async function submitGuess() {
       console.log(response);
       updateFoundWords(response.data.foundWords)
       updateMessage(response.data.feedback)
-      updateScore(response.data.score)
+      updateScore(response.data.score, response.data.highscore)
     }
   } catch (error) {
     console.log(error);
@@ -105,6 +107,13 @@ function updateMessage(msg) {
   $feedbackDiv.text(msg);
 }
 
-function updateScore(score) {
-  $scorebox.text() + score;
+function updateScore(score, highscore) {
+  if (highscore === score) {
+    console.log('new highscore!');
+    $currentScore.text(score);
+    $highscore.text(score);
+  } else {
+    console.log('adding score');
+    $currentScore.text(score)
+  }
 }

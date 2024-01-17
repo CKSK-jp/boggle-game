@@ -15,7 +15,7 @@
     <form method="POST" id="user-input" onsubmit="event.preventDefault(); submitGuess();">
       <label for="guess">Enter word found: </label>
       <input type="text" name="guess" required>
-      <button type="submit">submit</button>
+      <button id="submit-btn" type="submit">submit</button>
     </form>
 
     <div class="feedback">
@@ -44,24 +44,25 @@
         {% endfor %}
       </table>
     </div>
-
-    <div id="score-container">
-      <div id="user-score">Current Score: {{ current_score }}</div>
-      <div id="user-highscore">
-        HighScore:
+    <div id="answers-container">
+      <div>
+        <h3>Found Answers!</h3>
+        <ul id="found-words-list">
+          {% for word in found_words %}
+          <li>{{ word }}</li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
   </section>
 
 
-  <section id="answer-section">
-    <h3>Found Answers!</h3>
+  <section id="score-section">
+    <div>Current Score: <span id="user-score">{{ current_score }}</span></div>
+    <div>
+      HighScore: <span id="user-highscore"> {{ highscore }}</span>
+    </div>
 
-    <ul id="found-words-list">
-      {% for word in found_words %}
-      <li>{{ word }}</li>
-      {% endfor %}
-    </ul>
   </section>
 
 
