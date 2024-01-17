@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
 from boggle import Boggle
@@ -13,6 +15,7 @@ class BoggleApp(Flask):
 
 
 app = BoggleApp(__name__)
+# app.config["duration"] = datetime.now() + timedelta(seconds=60)
 
 
 @app.route("/")
@@ -62,7 +65,32 @@ def reset_game():
     session["found_words"] = []
     session["current_board"] = app.boggle_instance.make_board()
     session["current_score"] = 0
+    session["timedGame"] = False
+    app.config.pop("duration", None)
+
     return redirect(url_for("boggle_homepage"))
+
+
+@app.route("/start_timer")
+def start_timer():
+    # start a new duration if not currently in a timedGame
+    if "duration" not in app.config:
+        app.config["duration"] = datetime.now() + timedelta(seconds=5)
+    remaining_time = app.config["duration"] - datetime.now()
+    remaining_seconds = remaining_time.total_seconds()
+
+    if round(remaining_seconds) == 0:
+        print("end timer")
+        app.config.pop("duration", None)
+
+    return jsonify({"duration": remaining_seconds, "timedGame": session["timedGame"]})
+
+
+@app.route("/stop_timer", methods=["POST"])
+def stop_timer():
+    session["timedGame"] = False
+    app.config.pop("duration", None)
+    return ""
 
 
 if __name__ == "__main__":

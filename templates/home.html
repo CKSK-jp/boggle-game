@@ -12,7 +12,7 @@
   <h1>Boggle Game</h1>
 
   <section id="input-container">
-    <form method="POST" onsubmit="event.preventDefault(); submitGuess();">
+    <form method="POST" id="user-input" onsubmit="event.preventDefault(); submitGuess();">
       <label for="guess">Enter word found: </label>
       <input type="text" name="guess" required>
       <button type="submit">submit</button>
@@ -20,14 +20,17 @@
 
     <div class="feedback">
     </div>
-    <hr>
   </section>
 
   <section id="main-section">
     <div id="settings-container">
-      <button type="button">Untimed</button>
-      <button type="button">Timed</button>
-      <a href="/reset-game">Reset Game</a>
+      <div id="timer-settings">
+        <div class="timed timer-btn">Timed Game</div>
+      </div>
+      <div>
+        <span id="timer"></span>
+      </div>
+      <a id="reset-btn" href="/reset-game">Reset Game</a>
     </div>
 
     <div id="game-container">
@@ -45,7 +48,7 @@
     <div id="score-container">
       <div id="user-score">Current Score: {{ current_score }}</div>
       <div id="user-highscore">
-        HighScore: 
+        HighScore:
       </div>
     </div>
   </section>
