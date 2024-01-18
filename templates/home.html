@@ -9,20 +9,7 @@
 </head>
 
 <body>
-  <h1>Boggle Game</h1>
-
-  <section id="input-container">
-    <form method="POST" id="user-input" onsubmit="event.preventDefault(); submitGuess();">
-      <label for="guess">Enter word found: </label>
-      <input type="text" name="guess" required>
-      <button id="submit-btn" type="submit">submit</button>
-    </form>
-
-    <div class="feedback">
-    </div>
-  </section>
-
-  <section id="main-section">
+  <section id="left-section">
     <div id="settings-container">
       <div id="timer-settings">
         <div class="timed timer-btn">Timed Game</div>
@@ -31,6 +18,22 @@
         <span id="timer"></span>
       </div>
       <a id="reset-btn" href="/reset-game">Reset Game</a>
+    </div>
+  </section>
+
+  <section id="middle-section">
+
+    <h1>Boggle Game</h1>
+
+    <div id="input-container">
+      <form method="POST" id="user-input" onsubmit="event.preventDefault(); submitGuess();">
+        <label for="guess">Enter Word: </label>
+        <input type="text" name="guess" required>
+        <button id="submit-btn" type="submit">submit</button>
+      </form>
+
+      <div class="feedback">
+      </div>
     </div>
 
     <div id="game-container">
@@ -44,25 +47,25 @@
         {% endfor %}
       </table>
     </div>
-    <div id="answers-container">
+
+    <div id="score-container">
+      <div>Current Score: <span id="user-score">{{ current_score }}</span></div>
       <div>
-        <h3>Found Answers!</h3>
-        <ul id="found-words-list">
-          {% for word in found_words %}
-          <li>{{ word }}</li>
-          {% endfor %}
-        </ul>
+        HighScore: <span id="user-highscore"> {{ highscore }}</span>
       </div>
     </div>
+
   </section>
 
-
-  <section id="score-section">
-    <div>Current Score: <span id="user-score">{{ current_score }}</span></div>
-    <div>
-      HighScore: <span id="user-highscore"> {{ highscore }}</span>
+  <section id="right-section">
+    <div id="answers-container">
+      <h3>Found Answers!</h3>
+      <ul id="found-words-list">
+        {% for word in found_words %}
+        <li>{{ word }}</li>
+        {% endfor %}
+      </ul>
     </div>
-
   </section>
 
 
