@@ -6,22 +6,22 @@ The goal of the game is to get the highest point total. To gain points, players 
 ```bash
 $python3 -m venv venv
 ```
-
+Activate virtual env
 ```bash
 $source venv/bin/activate
 (env) $
 
 ```
-
+Install all necessary dependencies
 ```bash
-(env) $pip3 install flask
+(env) $pip3 install -r requirements.txt
 ...
 
 ```
 
-Make a “requirements.txt” file in this directory with a listing of all the software needed for this project:
+Run flask app
 ```
-(env) $pip3 freeze > requirements.txt
+(env) flask run
 ```
 
 ### **Usage Instructions **
@@ -31,7 +31,7 @@ Make a “requirements.txt” file in this directory with a listing of all the s
 - Scores are saved server side using session
 - Timed Games will be saved in both localStorage and server side sessions
 
-**Technologies Used:** HTML, CSS, JavaScript, Flask, Axios, Python, Unittest
+**Technologies Used:** sessionStorage, Jquery, Flask, Axios, Unittest
 
 ## TODO 
 Implement timer
