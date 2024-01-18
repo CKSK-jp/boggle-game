@@ -30,7 +30,7 @@ time_limit_seconds = 60
 @app.route("/")
 def boggle_homepage():
     """Render the homepage for the Boggle game."""
-    session.setdefault("current_board")
+    session["current_board"] = session["current_board"]
     session.setdefault("found_words", [])
     session.setdefault("current_score", 0)
     session.setdefault("highscore", 0)
