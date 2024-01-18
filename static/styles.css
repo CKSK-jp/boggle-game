@@ -1,10 +1,57 @@
 body {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: top;
   background-color: rgb(52, 52, 54);
   height: 90vh;
+}
+
+#middle-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#settings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 400px;
+  margin-top: 20rem;
+}
+
+#game-container {
+  margin-left: 30px;
+  margin-right: 30px;
+  height: 500px;
+  width: 500px;
+  min-height: 500px;
+  min-width: 500px;
+}
+
+#score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+  margin: 10px;
+}
+
+#answers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 17rem;
+  margin-left: 10px;
 }
 
 h1 {
@@ -18,17 +65,12 @@ h3 {
   font-size: 36px;
 }
 
-#input-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 input {
   border-radius: 1rem;
   height: 25px;
   font-weight: bold;
   font-size: large;
+  width: 200px;
   padding-left: 10px;
 }
 
@@ -99,7 +141,6 @@ button {
   box-shadow: inset 3px 3px 10px yellow, inset -3px -3px 10px yellow
 }
 
-
 ul {
   background-color: rgb(227, 232, 232);
   border-radius: 1rem;
@@ -140,48 +181,4 @@ li {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed !important;
-}
-
-#main-section {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-#game-container {
-  display: flex;
-  justify-content: center;
-  margin-left: 30px;
-  margin-right: 30px;
-  height: 500px;
-  width: 500px;
-}
-
-#settings-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 20vw;
-  margin: 10px;
-}
-
-#score-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 20vw;
-  color: white;
-  font-size: x-large;
-  font-weight: bold;
-  margin: 10px;
-}
-
-#answers-container {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  width: auto;
-  margin: 10px;
 }
