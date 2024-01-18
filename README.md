@@ -34,4 +34,4 @@ Run flask app
 **Technologies Used:** sessionStorage, Jquery, Flask, Axios, Unittest
 
 ## TODO 
-Implement timer
+Implement gameboard cursor interactivity and addtional unittesting
